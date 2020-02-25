@@ -8,6 +8,8 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -82,64 +84,94 @@
     </div>
   </nav>
 
+    
+
 
 
   <main id="main">
 
+
     <div class="site-section">
       <div class="container">
-        <div class="row mb-4 align-items-center">
-          <div class="col-md-6" data-aos="fade-up">
-
-            <h2>Code</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores illo, id recusandae molestias
-              illum unde pariatur, enim tempora.</p>
-            
-            
-            
-
-          </div>
-
-
-        </div>
-      </div>
-
-      <div class="site-section pb-0">
-        <div class="container">
-          <div class="row align-items-stretch">
-            <div class="col-md-8" data-aos="fade-up">
-              <video poster="Asto_img.jpg" width="618" height="347" controls preload> 
-                <source src="video/2D2.mp4" media="only screen and (min-device-width: 568px)"></source> 
-                <source src="video/2D2.iphone.mp4" media="only screen and (max-device-width: 568px)"></source> 
-                <source src="video/2D2.mp4"></source>  
-            </div>
-            <div class="col-md-3 ml-auto" data-aos="fade-up" data-aos-delay="100">
-              <div class="sticky-content">
-                <h3 class="h3">2D Incompressible Fluid Flow</h3>
-                <p class="mb-4"><span class="text-muted">Code</span></p>
-
-                <div class="mb-5">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores illo, id recusandae molestias
-                    illum unde pariatur, enim tempora.</p>
-                    
-
-                </div>
-
-
-                <h4 class="h4 mb-3">What I did</h4>
-                <ul class="list-unstyled list-line mb-5">
-                  <li>Design</li>
-                  <li>HTML5/CSS3</li>
-                  <li>CMS</li>
-                  <li>Logo</li>
-                </ul>
-
-                <p><a href="#" class="readmore">Visit Website</a></p>
-              </div>
-            </div>
+        <div class="row">
+          <div class="col">
+            <h2>2D Incompressible Fluid Flow</h2>
           </div>
         </div>
+        <div class="row justify-content-center" data-aos="zoom-in">
+          <div class="col-6 py-3 px-lg-5" data-aos="zoom-in">
+            <video poster="Asto_img.jpg" width="600" height="347" controls preload> 
+            <source src="video/2D2.mp4" media="only screen and (min-device-width: 568px)"></source> 
+            <source src="video/2D2.iphone.mp4" media="only screen and (max-device-width: 568px)"></source> 
+            <source src="video/2D2.mp4"></source> 
+          </div> 
+        </div>
+
+
+        <div class="row justify-content-center">
+          <div class="col py-3 px-lg-5">
+            <h4> Code </h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col py-3 px-lg-5 " data-aos="zoom-in">  
+            <pre class="prettyprint lang-python linenums">
+            <code class="language-python">
+            # IMPORT OUR NORMAL STUFF
+            from numpy import *
+            from matplotlib.pyplot import *
+            %matplotlib inline
+
+            f = fluid.FluidFlow2D(ncells=80, xmin=-50, xmax=50,
+              solver_tolerence=3.e-4)
+
+            # gets the coordinate arrays
+            xx, yy = f.get_coords()
+
+            # setup an initial condition
+            vxo = zeros_like(xx)
+            vyo = zeros_like(xx)
+            dno = ones_like(xx)
+
+
+            # set higher density on the top
+
+            dno[yy>5*sin(xx/6)-30] = 2
+            dno[yy>5*sin(xx/6)+30] = 1
+
+            #vxo[]
+            vxo[yy>5*sin(xx/6)-30] = 2
+            vxo[yy>5*sin(xx/6)+30] = 0
+
+
+            # send this initial condition to the code
+            diff_coeff = 1.e-3
+            f.setup_initial_condition(vxo, vyo, dno, Diff_Coeff=diff_coeff,bctype="wrap")
+
+            vxlist = []
+            vylist = []
+            dnlist = []
+
+            f.evolve_fluid(vxlist,vylist,dnlist,tmax=400,plot_every=10,save_every=10,bctype="wrap")
+
+            f.make_monitoring_plots(velocity_vectors = True)
+            </code>               
+            </pre>
+          </div>
+
+          <div class="col">
+            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
+            <ul class="list-unstyled list-line mb-5">
+              <li>Design</li>
+              <li>HTML5/CSS3</li>
+              <li>CMS</li>
+              <li>Logo</li>
+            </ul>
+          </div>
+        </div>
       </div>
+    </div>
 
 
       <div class="site-section pb-0">
