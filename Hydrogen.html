@@ -42,6 +42,11 @@
   </style>
 
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 
 
   <!-- =======================================================
@@ -63,13 +68,13 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Me</a></li>
             <li class="active"><a href="works.html">Works</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><A HREF="mailto:zoemweber@gmail.com">Contact Me</A></li>
           </ul>
         </div>
         <div class="col-md-6 d-none d-md-block  mr-auto">
           <h3>Hire Me</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
-            explicabo inventore. <br> <a href="#">zoemweber@gmail.com</a></p>
+            explicabo inventore. </p>
         </div>
       </div>
 
@@ -93,84 +98,136 @@
 
   <main id="main">
 
-
-    <div class="site-section">
-      <div class="container">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+    
         
-        <div class="row" data-aos="zoom-in">
-          <div class="col-6">
-            <h2>2D Incompressible Fluid Flow</h2>
+    <div class="site-section pb-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col" data-aos="fade-up">
+            <h2>Observation of Atomic Hydrogen Hyperfine Transitions within the Milky Way galaxy</h2>
+              <p>
+For this paper we discuss our measurements and analysis of hyperfine lines of hydrogen at distinct places within 
+the galactic plane of our Milky Way. We found that the average column density of neutral hydrogen was 
+\( N(n) = 1.59 \times 10^{22} cm^{-2} \pm 1.91 \times 10^{21} cm ^{-2} \) and that the related average brightness 
+temperature was equal to \( T_{B_{Avg}} = 18.84 K \pm 1.02 K \). From the experiment we deduced that not only is 
+neutral hydrogen far more abundant within the galactic plane but it is also rotating around our galactic center, 
+leading us to believe neutral hydrogen is concentrated in the spiral arms of our galaxy.
+              </p>
+              <p><a href="Observation of Galactic Neutral Hydrogen/Observation_Of_Galactic_Nuetral_Hydrogen.pdf" class="readmore">Read Paper Here</a></p>
           </div>
         </div>
 
-        <div class="row justify-content-center" data-aos="zoom-in">
-          <div class="col--6 py-3 px-lg-5" data-aos="zoom-in">
-            <video poster="Asto_img.jpg" width="600" height="347" controls preload> 
-            <source src="video/2D2.mp4" media="only screen and (min-device-width: 568px)"></source> 
-            <source src="video/2D2.iphone.mp4" media="only screen and (max-device-width: 568px)"></source> 
-            <source src="video/2D2.mp4"></source> 
-          </div> 
+        <div class="row align-items-center justify-content-center text-center" data-aos="zoom-in">
+          <div class="col align-items-center">
+            <figure>
+              <img src="Observation of Galactic Neutral Hydrogen/Radio.png" alt="Radio" style="width:45%"/>
+              <figcaption>Actual photo of Radio data taken with radio telescope.</figcaption>
+            </figure>
+          </div>
         </div>
 
+      </div>
+    </div>
 
+    <div class="site-section pt-0">
+      <div class="container">
         <div class="row justify-content-center text-center" data-aos="zoom-in">
-          <div class="col-5 py-3 px-lg-5 align-self-center">
+          <div class="col-5 align-self-center">
             <h2> Code </h2>
           </div>
         </div>
 
-        <div class="row" data-aos="zoom-in">
-          <div class="col-7 py-3 px-lg-5 "> 
+        <div class="row justify-content-center">
+          <div class="col py-3 px-lg-5 "> 
 
-<pre class="prettyprint linenums">
-# IMPORT OUR NORMAL STUFF
-from numpy import *
-from matplotlib.pyplot import *
-%matplotlib inline
-
-f = fluid.FluidFlow2D(ncells=80, xmin=-50, xmax=50,
-  solver_tolerence=3.e-4)
-
-# gets the coordinate arrays
-xx, yy = f.get_coords()
-
-# setup an initial condition
-vxo = zeros_like(xx)
-vyo = zeros_like(xx)
-dno = ones_like(xx)
-
-# set higher density on the top
-
-dno[yy>5*sin(xx/6)-30] = 2
-dno[yy>5*sin(xx/6)+30] = 1
-
-#vxo[]
-vxo[yy>5*sin(xx/6)-30] = 2
-vxo[yy>5*sin(xx/6)+30] = 0
-
-# send this initial condition to the code
-diff_coeff = 1.e-3
-f.setup_initial_condition(vxo, vyo, dno, Diff_Coeff=diff_coeff,bctype="wrap")
-
-vxlist = []
-vylist = []
-dnlist = []
-
-f.evolve_fluid(vxlist,vylist,dnlist,tmax=400,plot_every=10,save_every=10,bctype="wrap")
-f.make_monitoring_plots(velocity_vectors = True)                 
+<pre class="prettyprint linenums" data-aos="zoom-in">
+import numpy as np
+from scipy.stats import *
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+  
+import csv               
 </pre>
-          </div>
 
-          <div class="col-auto">
-            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
-            <ul class="list-unstyled list-line mb-5">
-              <li>Design</li>
-              <li>HTML5/CSS3</li>
-              <li>CMS</li>
-              <li>Logo</li>
-            </ul>
+<pre class="prettyprint linenums" data-aos="zoom-in">
+N = np.array([5.824E+21,6.664E+21,7.693E+21,7.970E+21,9.503E+21,1.013E+22,1.076E+22,
+      1.713E+22,2.401E+22,2.636E+22,2.831E+22,2.924E+22,2.644E+22,2.463E+22,
+      2.041E+22,1.690E+22,1.311E+22,1.014E+22,7.287E+21])
+
+Trace = np.linspace(1,19,19)
+
+err = np.array([1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,
+        1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,
+        1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,1.91186E+21,
+        1.91186E+21])
+</pre>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+(_, caps, _) = plt.errorbar(Trace, N, err, label = "Error", fmt='none', ecolor = "r", 
+  linewidth = 1, zorder=2, capsize=1)
+
+for cap in caps:
+  cap.set_markeredgewidth(1)
+
+plt.scatter(Trace, N, label = "N(scan$_i$)", marker=".", color = "k", linewidth = 2, zorder=3)
+plt.grid()
+plt.xlabel('Scan Number')
+plt.ylabel('N (cm$^{-2}$)')
+plt.title("Column Density Falloff")
+plt.legend()#loc='upper left'
+plt.savefig("/Users/zoe/Desktop/Plots/NPlot.png")
+</pre>
+
+        <div class="row justify-content-center">
+          <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+            <img src="Observation of Galactic Neutral Hydrogen/NPlot.png">
           </div>
         </div>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+v = []
+t1 = []
+... 
+
+with open('/Users/zoe/Desktop/Observation of Galactic Neutral Hydrogen/tData.csv') as data:
+  readCSV = csv.reader(data, delimiter=",",quoting=csv.QUOTE_NONNUMERIC)
+  for row in readCSV:
+      v.append(row[0])
+      v = v[0:461]
+        
+      t0 = np.linspace(0,0,461)
+      
+      t1.append(row[1])
+      t1 = t1[0:461]
+      ...
+
+List = np.array([t0,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17,t18,t19])
+</pre>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+for i in range(len(List)): 
+  plt.figure()
+  plt.scatter(v,List[i+1],label = 'T$_{B'+ str(i+1) +'}$(v)', marker=".", color = "k", linewidth = 2, zorder=3)
+  plt.grid()
+  plt.xlabel('v (km/s)')
+  plt.ylabel('T$_{B'+ str(i+1) +'}$ (K)')
+  plt.title('T$_{B'+ str(i+1) +'}$ Vs. v')
+  plt.legend()#loc='upper left')
+  plt.savefig("/Users/zoe/Desktop/Observation of Galactic Neutral Hydrogen/tplt" + str(i+1) + ".png")
+  plt.show()
+</pre>
+
+        <div class="row justify-content-center">
+          <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+            <img src="Observation of Galactic Neutral Hydrogen/tplt1.png">
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -295,6 +352,7 @@ f.make_monitoring_plots(velocity_vectors = True)
                     She does good work, and is not afraid to ask questions. She has 
                     a wonderful personality too. Contact me at the Harmony Magnet 
                     Academy web-site if you have any questions.</p>
+                    
                 </blockquote>
                 <p>&mdash; Marc Wheeler</p>
               </div>

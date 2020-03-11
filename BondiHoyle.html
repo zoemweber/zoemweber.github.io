@@ -42,6 +42,11 @@
   </style>
 
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 
 
   <!-- =======================================================
@@ -63,13 +68,13 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Me</a></li>
             <li class="active"><a href="works.html">Works</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><A HREF="mailto:zoemweber@gmail.com">Contact Me</A></li>
           </ul>
         </div>
         <div class="col-md-6 d-none d-md-block  mr-auto">
           <h3>Hire Me</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
-            explicabo inventore. <br> <a href="#">zoemweber@gmail.com</a></p>
+            explicabo inventore.</p>
         </div>
       </div>
 
@@ -93,84 +98,71 @@
 
   <main id="main">
 
-
-    <div class="site-section">
-      <div class="container">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+    
         
-        <div class="row" data-aos="zoom-in">
-          <div class="col-6">
-            <h2>2D Incompressible Fluid Flow</h2>
+    <div class="site-section pb-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col" data-aos="fade-up">
+            <h2>A Stufy of Bondi–Hoyle–Lyttleton Accretion in Star Clusters</h2>
+              <p>
+                The purpose of this study was to determine how  BHL affects a star’s ability to accrete 
+                ambient gas. Through the use of FLASH we created a three-dimensional hydrodynamic simulation 
+                of clusters of stars embedded in a supersonic, uniform density wind of 
+                ambient gas. We Aimed to show how the accretion rate of a star cluster depends on the 
+                number density of stars, the separation between them and the equation of state held by the gas.
+              </p>
+
+              <p>
+                Analytical data concluded that accretion taking place in globular clusters will increase 
+                as the number of cluster members rises and the distance between stars becomes 
+                smaller. For globular clusters that have a smaller distance of separation 
+                between stars, the mass accretion rate can be calculated as a whole rather 
+                than by the addition of each individual star. This can be given by the equation:
+              </p>
+
+              <p><a href="BondiHoyle/Report.pdf" class="readmore">Read Paper Here</a></p>
           </div>
         </div>
 
-        <div class="row justify-content-center" data-aos="zoom-in">
-          <div class="col--6 py-3 px-lg-5" data-aos="zoom-in">
+        <div class="row align-items-center justify-content-center text-center" data-aos="zoom-in">
+          <div class="col align-items-center">
+            <caption>
+              3D Visualization of Bondi–Hoyle–Lyttleton Accretion for a singular star.
+            <caption>
             <video poster="Asto_img.jpg" width="600" height="347" controls preload> 
-            <source src="video/2D2.mp4" media="only screen and (min-device-width: 568px)"></source> 
-            <source src="video/2D2.iphone.mp4" media="only screen and (max-device-width: 568px)"></source> 
-            <source src="video/2D2.mp4"></source> 
+            <source src="BondiHoyle/3DSimulation.mp4" media="only screen and (min-device-width: 568px)"></source> 
+            <source src="BondiHoyle/3DSimulation.mp4" media="only screen and (max-device-width: 568px)"></source> 
+            <source src="BondiHoyle/3DSimulation.mp4"></source>
           </div> 
         </div>
+          </div>
+        </div>
 
+      </div>
+    </div>
 
+    <div class="site-section pt-0">
+      <div class="container">
         <div class="row justify-content-center text-center" data-aos="zoom-in">
-          <div class="col-5 py-3 px-lg-5 align-self-center">
-            <h2> Code </h2>
+          <div class="col-5 align-self-center">
+            <h2> Something </h2>
           </div>
         </div>
 
-        <div class="row" data-aos="zoom-in">
-          <div class="col-7 py-3 px-lg-5 "> 
+        <div class="row justify-content-center">
+          <div class="col py-3 px-lg-5 ">
 
-<pre class="prettyprint linenums">
-# IMPORT OUR NORMAL STUFF
-from numpy import *
-from matplotlib.pyplot import *
-%matplotlib inline
-
-f = fluid.FluidFlow2D(ncells=80, xmin=-50, xmax=50,
-  solver_tolerence=3.e-4)
-
-# gets the coordinate arrays
-xx, yy = f.get_coords()
-
-# setup an initial condition
-vxo = zeros_like(xx)
-vyo = zeros_like(xx)
-dno = ones_like(xx)
-
-# set higher density on the top
-
-dno[yy>5*sin(xx/6)-30] = 2
-dno[yy>5*sin(xx/6)+30] = 1
-
-#vxo[]
-vxo[yy>5*sin(xx/6)-30] = 2
-vxo[yy>5*sin(xx/6)+30] = 0
-
-# send this initial condition to the code
-diff_coeff = 1.e-3
-f.setup_initial_condition(vxo, vyo, dno, Diff_Coeff=diff_coeff,bctype="wrap")
-
-vxlist = []
-vylist = []
-dnlist = []
-
-f.evolve_fluid(vxlist,vylist,dnlist,tmax=400,plot_every=10,save_every=10,bctype="wrap")
-f.make_monitoring_plots(velocity_vectors = True)                 
-</pre>
-          </div>
-
-          <div class="col-auto">
-            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
-            <ul class="list-unstyled list-line mb-5">
-              <li>Design</li>
-              <li>HTML5/CSS3</li>
-              <li>CMS</li>
-              <li>Logo</li>
-            </ul>
           </div>
         </div>
+
+
+
+
       </div>
     </div>
 
@@ -275,7 +267,6 @@ f.make_monitoring_plots(velocity_vectors = True)
               </a>
             </div>
 
-          </div>
         </div>
       </div>
 
@@ -296,6 +287,7 @@ f.make_monitoring_plots(velocity_vectors = True)
                     She does good work, and is not afraid to ask questions. She has 
                     a wonderful personality too. Contact me at the Harmony Magnet 
                     Academy web-site if you have any questions.</p>
+                    
                 </blockquote>
                 <p>&mdash; Marc Wheeler</p>
               </div>
