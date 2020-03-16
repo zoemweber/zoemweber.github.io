@@ -41,7 +41,9 @@
     .prettyprint ol.linenums > li { background:#fff ; }
   </style>
 
-
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
   <!-- =======================================================
@@ -100,6 +102,12 @@
         <div class="row" data-aos="zoom-in">
           <div class="col-6">
             <h2>2D Incompressible Fluid Flow</h2>
+            <p>
+              This is a demo of the flow of an incompressible fluid, 
+              modeled using finite-differencing techniques for the diffusion equation.
+              The code solves the fluid equations found bellow by using the methods described here:
+              <p><a href="pdf/Paper.pdf" class="readmore">Read Paper Here</a></p>
+            </p>
           </div>
         </div>
 
@@ -115,13 +123,66 @@
 
         <div class="row justify-content-center text-center" data-aos="zoom-in">
           <div class="col-5 py-3 px-lg-5 align-self-center">
-            <h2> Code </h2>
+            <h2>Code</h2>
           </div>
         </div>
 
         <div class="row" data-aos="zoom-in">
-          <div class="col-7 py-3 px-lg-5 "> 
+          <div class="col-5">
+            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
+            <p>
+            Two, coupled equations govern incompressible fluid flow 
+            of the sort we're modeling here:
+            <br>
+            \[ \vec{\nabla} \cdot \vec{v} = 0 \]
+            <br>              
+            \[ {\partial v \over \partial t} = - \left( \vec{v} \cdot \vec{\nabla} \right) \vec{v} + \nu \nabla^2 \vec{v} + \vec{g} \]
+            <br>
+            These equations assume constant pressure throughout the fluid. 
+            <br>              
+            The fluid velocities are the quantity of interest. 
+            These are: 
+            \[ \vec{v} = (v_x, v_y) \]
+            <br>
+            The vector \( \vec{\nabla} \) is:
+            <br>
+            \[ \vec{\nabla} = \left({\partial \over \partial x}, {\partial \over \partial y} \right) \]
+            and 
+            \[ \nabla^2 = \vec{\nabla} \cdot \vec{\nabla} \] 
+            <br>
+            Finally, \( \vec{g} \) is an external acceleration on the fluid.
+            <br>
+            <br>
+            <b>Terms:</b>
+            <br>
+            The first equation says the fluid cannot compress: velocities must <b>never</b> 
+            converge or diverge. The second equation governs the time evolution of the 
+            fluid velocities.
+            <br> 
+            These velocities (defined at a given position) can respond to several terms:
+            <br>
+            <br>
+            1. <b>Advection</b>: \( \left( \vec{v} \cdot \vec{\nabla} \right) \vec{v} \)
+            <br> 
+            Advection is the transport of fluid velocities by the flow velocity itself: 
+            tracers or velocities themselves can be "swept along" by the flow. Imagine a cork 
+            drifting with a fluid flow - or a eddie being carried downstream by the bulk flow 
+            of a river. 
+            <br>
+            2. <b>Diffusion</b>: \( \nu \nabla^2 \vec{v} \) 
+            <br>
+            Diffusion disperses the fluid velocities based on the diffusion coefficient \( \nu \). 
+            A very viscous fluid (like magma or mollases has high $\nu$, and this term is very important.
+            A very low-viscosity fluid (like air, or gas in the sun) has low $\nu$. This term tries to 
+            smooth out neighboring velocities. 
+            <br>
+            3. <B>External force</B>: \( \vec{g} \) 
+            <br>
+            There may be an external acceleration (like gravity) acting on the fluid. 
+            </p>
+          </div>
 
+          <div class="col-7 py-3 px-lg-5 "> 
 <pre class="prettyprint linenums">
 # IMPORT OUR NORMAL STUFF
 from numpy import *
@@ -182,16 +243,6 @@ anim = animation.FuncAnimation(fig,make_plot,interval=100,frames=range(len(dnlis
 
 anim.save("2D.mp4")
 </pre>
-          </div>
-
-          <div class="col-auto">
-            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
-            <ul class="list-unstyled list-line mb-5">
-              <li>Design</li>
-              <li>HTML5/CSS3</li>
-              <li>CMS</li>
-              <li>Logo</li>
-            </ul>
           </div>
         </div>
       </div>

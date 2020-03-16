@@ -42,6 +42,11 @@
   </style>
 
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 
 
   <!-- =======================================================
@@ -69,7 +74,7 @@
         <div class="col-md-6 d-none d-md-block  mr-auto">
           <h3>Hire Me</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
-            explicabo inventore.</p>
+            explicabo inventore. </p>
         </div>
       </div>
 
@@ -93,121 +98,217 @@
 
   <main id="main">
 
-
-    <div class="site-section">
-      <div class="container">
-        <h2>Coming Soon!<h2>
-          <p>
-            Thank you so much for visiting my Wesite. 
-            I have a lot to show from the work I've 
-            done over the past 5 years, with that said
-            It'll take some time to get it all up and running 
-            here on my website. Your patience is very much 
-            appreciated, Thank you!
-          </p>
-      </div>
-    </div>
-          
-    <!-- <div class="site-section">
-      <div class="container">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+    
         
-        <div class="row" data-aos="zoom-in">
-          <div class="col-6">
-            <h2>2D Incompressible Fluid Flow</h2>
+    <div class="site-section pb-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col" data-aos="fade-up">
+            <h2>Earthquakes!</h2>
+              <p>
+In this problem, we'll work with a data set from the following data source from the USGS:
+<p><a href="http://earthquake.usgs.gov/data/centennial/" class="readmore">Find Data Here</a></p>
+According to the USGS website, The Centennial Catalog (Engdahl and Villaseñor, 2002) (2.75MB PDF) 
+is a global catalog of locations and magnitudes of instrumentally recorded earthquakes from 1900 
+to 2008. It is being periodically updated as new arrival time data for recent years become 
+available. This is a catalog of large earthquakes, created with the purpose of giving a realistic 
+picture of the seismicity distribution in the Earth. It has been assembled by combining existing 
+catalogs, reducing all available magnitudes for each earthquake to a common, corrected magnitude 
+(same magnitudes as List of "Preferred Magnitudes of Selected Significant Earthquakes"-Word file), 
+and relocating the earthquakes with available arrival time data. For recent years (1964–present) a cut-off magnitude of 5.5 has been chosen for the catalog, and the catalog is complete down to that threshold. For the period prior to 1964 (also referred to as "historical instrumental" or simply "historical" period) the cut-off considered is magnitude 6.5. Between the 1930's and 1963 the catalog is complete to te magnitude 6.5 threshold, but prior to that, the catalog is only complete down to magnitude 7.0.
+We have downloaded the full file and reformatted it into a .csv format. The lines of the file have the following column headers:
+date+time stamp, ignore, latitude (deg), longitude (deg), Earthquake depth (km), Earthquake Magnitude (Richter)
+              </p>
+              
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="row justify-content-center" data-aos="zoom-in">
-          <div class="col--6 py-3 px-lg-5" data-aos="zoom-in">
-            <video poster="Asto_img.jpg" width="600" height="347" controls preload> 
-            <source src="video/2D2.mp4" media="only screen and (min-device-width: 568px)"></source> 
-            <source src="video/2D2.iphone.mp4" media="only screen and (max-device-width: 568px)"></source> 
-            <source src="video/2D2.mp4"></source> 
-          </div> 
-        </div>
-
-
+    <div class="site-section pt-0">
+      <div class="container">
         <div class="row justify-content-center text-center" data-aos="zoom-in">
-          <div class="col-5 py-3 px-lg-5 align-self-center">
+          <div class="col-5 align-self-center">
             <h2> Code </h2>
           </div>
         </div>
 
-        <div class="row" data-aos="zoom-in">
-          <div class="col-7 py-3 px-lg-5 "> 
+        <div class="row justify-content-center">
+          <div class="col py-3 px-lg-5 "> 
 
-<pre class="prettyprint linenums">
-# IMPORT OUR NORMAL STUFF
+<p data-aos="zoom-in">
+We have downloaded the full file and reformatted it into a .csv format. The 
+lines of the file have the following column headers: date+time stamp, ignore, 
+latitude (deg), longitude (deg), Earthquake depth (km), Earthquake Magnitude (Richter)
+** Download Earthquake.csv and put it in the same folder as this notebook **
+</p>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+#first our standard packages
 from numpy import *
-from matplotlib.pyplot import *
 %matplotlib inline
+from matplotlib.pyplot import *
+from astropy.io import ascii
 
-f = fluid.FluidFlow2D(ncells=80, xmin=-50, xmax=50,
-  solver_tolerence=3.e-4)
-
-# gets the coordinate arrays
-xx, yy = f.get_coords()
-
-# setup an initial condition
-vxo = zeros_like(xx)
-vyo = zeros_like(xx)
-dno = ones_like(xx)
-
-# set higher density on the top
-
-dno[yy>5*sin(xx/6)-30] = 2
-dno[yy>5*sin(xx/6)+30] = 1
-
-#vxo[]
-vxo[yy>5*sin(xx/6)-30] = 2
-vxo[yy>5*sin(xx/6)+30] = 0
-
-# send this initial condition to the code
-diff_coeff = 1.e-3
-f.setup_initial_condition(vxo, vyo, dno, Diff_Coeff=diff_coeff,bctype="wrap")
-
-vxlist = []
-vylist = []
-dnlist = []
-
-f.evolve_fluid(vxlist,vylist,dnlist,tmax=400,plot_every=10,save_every=10,bctype="wrap")
-f.make_monitoring_plots(velocity_vectors = True)       
-
-
-
-import matplotlib.animation as animation
-%matplotlib nbagg
-
-save_every = 10
-
-fig = figure()
-
-def make_plot(i):
-    clf()
-    pcolormesh(xx,yy,dnlist[i],cmap = "gist_rainbow_r",vmin=1,vmax=2)
-    xlabel('x-position [m]')
-    ylabel('x-position [m]')
-    axis('equal')
-    colorbar(label="")
-
-anim = animation.FuncAnimation(fig,make_plot,interval=100,frames=range(len(dnlist)),repeat=False)
-
-#make_plot(3)
-
-anim.save("2D.mp4")
+#then the packages we'll need to deal with dates
+import dateutil.parser as dparser
+from datetime import *              
 </pre>
-          </div>
 
-          <div class="col-auto">
-            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
-            <ul class="list-unstyled list-line mb-5">
-              <li>Design</li>
-              <li>HTML5/CSS3</li>
-              <li>CMS</li>
-              <li>Logo</li>
-            </ul>
-          </div>
-        </div>
+<p> data-aos="zoom-in"
+Use ascii.read to read data from the .csv file into an astropy Table object.
+Print the column names of your new Table (check the astropy Table documentation 
+if you're not sure how to do that). Note that the units for each column are given 
+in the description above.
+</p>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+eq = ascii.read("Earthquakes.csv")
+print eq.colnames
+</pre>
+
+<p data-aos="zoom-in">
+['date_string', 'ignore', 'latitude', 'longitude', 'EQ_depth', 'EQ_magnitude']
+<br>
+<br>
+Add a new column in which you parse the date_string to a datetime object using dparser.parse. 
+This can be accomplished either with map or with a for loop over entries in the table. Print 
+the zeroth entry in your new column. It should be a datetime object.
+</p>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+eq['date']  = map(dparser.parse,eq['date_string'])
+print eq['date'][0]
+</pre>
+
+<p data-aos="zoom-in">
+1900-01-05 19:00:00
+</p>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+twentieth_cent = eq['date'] < datetime(2000,01,01)
+max_mag = max(eq[twentieth_cent]['EQ_magnitude'])
+print ('The maximum magnitude in the 20th century was:', max_mag)
+</pre>
+
+<p data-aos="zoom-in">
+The maximum magnitude in the 20th century was: 9.6
+<br>
+<br>
+Using data selection techniques, find: When did the largest Earthquake occur? 
+What was it's depth?
+</p>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+max_mag_select = eq['EQ_magnitude'] == max_mag
+print "The magnitude",max_mag," earthquake happened on ", eq[max_mag_select]["date"][0]
+print " at a depth of ",eq[max_mag_select]['EQ_depth'][0], "km"
+</pre>
+
+<p data-aos="zoom-in">
+The magnitude 9.6  earthquake happened on 1960-05-22 19:11:00
+at a depth of  35.0 km
+<br>
+<br>
+Construct a histogram that shows the frequency of Earthquakes of different 
+magnitudes in the entire dataset. The x-axis should run from M=5.5 to M=9.5, 
+the axes should be labeled, and the histogram should contain 40 bins
+</p>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+hist(eq['EQ_magnitude'], bins=40, color='DodgerBlue')  
+xlim(5.5,9.5) 
+xlabel('Richter scale Magnitude')
+ylabel('Frequency of Occurence')  
+show()
+</pre>
+
+<div class="row justify-content-center">
+  <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+    <img src="img/frequency.png">
+  </div>
+</div>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+plot(eq["EQ_depth"],eq["EQ_magnitude"],'.',alpha=0.2)
+xlabel('Earthquake depth [km]')
+ylabel('Earthquake magnitude')
+xscale('log')
+</pre>
+
+<div class="row justify-content-center">
+  <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+    <img src="img/MagDepth.png">
+  </div>
+</div>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+mag_8 = eq['EQ_magnitude']>=8
+print "median depth of Mag >=8 earthquakes: ", median(eq[mag_8]['EQ_depth'])
+print "median depth of all earthquakes:", median(eq['EQ_depth'] )
+</pre>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+print "Maximum time between mag 8 earthquakes = ", max( diff(eq[mag_8]['date']) )
+print "Minimum time between mag 8 earthquakes = ", min( diff(eq[mag_8]['date']) )
+</pre>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+from mpl_toolkits.basemap import Basemap
+
+figure(figsize=(12,8))
+m = Basemap(projection='hammer',lon_0=0)
+
+x, y = m(eq['longitude'],eq['latitude'])
+
+m.drawmapboundary(fill_color='LightCyan')
+m.fillcontinents(color='Tan',lake_color='LightCyan')
+m.scatter(x,y,marker='o',
+  alpha=0.2,
+  edgecolor='None')
+</pre>
+
+<div class="row justify-content-center">
+  <div class="col-10 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+    <img src="img/Screen Shot 2020-03-15 at 2.38.59 PM.png">
+  </div>
+</div>
+
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+mag_6 = eq['EQ_magnitude'] >= 6
+
+# Now re-make the figure 
+figure(figsize=(12,8))
+
+m = Basemap(projection='hammer',lon_0=180) # centered on lon=180 (international date line)
+
+x, y = m(eq[mag_6]['longitude'],eq[mag_6]['latitude'])
+
+m.drawmapboundary(fill_color='LightCyan')
+m.fillcontinents(color='Tan',lake_color='LightCyan')
+
+m.scatter(x,y,
+  c=log10(eq[mag_6]['EQ_depth']),
+  marker='o',
+  s=eq[mag_6]['EQ_magnitude']*3,
+  alpha=0.7,
+  edgecolor='None',
+  cmap='viridis_r')
+
+m.colorbar(label='log10 depth [km]')
+</pre>
+
+<div class="row justify-content-center">
+  <div class="col-10 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+    <img src="img/Screen Shot 2020-03-15 at 2.39.13 PM.png">
+  </div>
+</div>
+
       </div>
     </div>
 
@@ -312,9 +413,8 @@ anim.save("2D.mp4")
               </a>
             </div>
 
-          </div>
         </div>
-      </div> -->
+      </div>
 
 
 
@@ -333,6 +433,7 @@ anim.save("2D.mp4")
                     She does good work, and is not afraid to ask questions. She has 
                     a wonderful personality too. Contact me at the Harmony Magnet 
                     Academy web-site if you have any questions.</p>
+                    
                 </blockquote>
                 <p>&mdash; Marc Wheeler</p>
               </div>
@@ -381,3 +482,4 @@ anim.save("2D.mp4")
 </body>
 
 </html>
+
