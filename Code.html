@@ -42,6 +42,11 @@
   </style>
 
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
 
 
   <!-- =======================================================
@@ -93,123 +98,139 @@
 
   <main id="main">
 
-    <div class="site-section">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+    
+        
+    <div class="site-section pb-5">
       <div class="container">
-        <h2>Coming Soon!<h2>
-          <p>
-            Thank you so much for visiting my Wesite. 
-            I have a lot to show from the work I've 
-            done over the past 5 years, with that said
-            It'll take some time to get it all up and running 
-            here on my website. Your patience is very much 
-            appreciated, Thank you!
-          </p>
+        <div class="row align-items-center">
+          <div class="col" data-aos="fade-up">
+            <h2>Earthquakes!</h2>
+              <p>
+In this problem, we'll work with a data set from the following data source from the USGS:
+<p><a href="http://earthquake.usgs.gov/data/centennial/" class="readmore">Find Data Here</a></p>
+According to the USGS website, The Centennial Catalog (Engdahl and Villaseñor, 2002) (2.75MB PDF) 
+is a global catalog of locations and magnitudes of instrumentally recorded earthquakes from 1900 
+to 2008. It is being periodically updated as new arrival time data for recent years become 
+available. This is a catalog of large earthquakes, created with the purpose of giving a realistic 
+picture of the seismicity distribution in the Earth. It has been assembled by combining existing 
+catalogs, reducing all available magnitudes for each earthquake to a common, corrected magnitude 
+(same magnitudes as List of "Preferred Magnitudes of Selected Significant Earthquakes"-Word file), 
+and relocating the earthquakes with available arrival time data. For recent years (1964–present) a cut-off magnitude of 5.5 has been chosen for the catalog, and the catalog is complete down to that threshold. For the period prior to 1964 (also referred to as "historical instrumental" or simply "historical" period) the cut-off considered is magnitude 6.5. Between the 1930's and 1963 the catalog is complete to te magnitude 6.5 threshold, but prior to that, the catalog is only complete down to magnitude 7.0.
+We have downloaded the full file and reformatted it into a .csv format. The lines of the file have the following column headers:
+date+time stamp, ignore, latitude (deg), longitude (deg), Earthquake depth (km), Earthquake Magnitude (Richter)
+              </p>
+              
+          </div>
+        </div>
       </div>
     </div>
 
-
-    <!-- <div class="site-section">
+    <div class="site-section pt-0">
       <div class="container">
-        
-        <div class="row" data-aos="zoom-in">
-          <div class="col-6">
-            <h2>2D Incompressible Fluid Flow</h2>
-          </div>
-        </div>
-
-        <div class="row justify-content-center" data-aos="zoom-in">
-          <div class="col--6 py-3 px-lg-5" data-aos="zoom-in">
-            <video poster="Asto_img.jpg" width="600" height="347" controls preload> 
-            <source src="video/2D2.mp4" media="only screen and (min-device-width: 568px)"></source> 
-            <source src="video/2D2.iphone.mp4" media="only screen and (max-device-width: 568px)"></source> 
-            <source src="video/2D2.mp4"></source> 
-          </div> 
-        </div>
-
-
         <div class="row justify-content-center text-center" data-aos="zoom-in">
-          <div class="col-5 py-3 px-lg-5 align-self-center">
+          <div class="col-5 align-self-center">
             <h2> Code </h2>
           </div>
         </div>
 
-        <div class="row" data-aos="zoom-in">
-          <div class="col-7 py-3 px-lg-5 "> 
+        <div class="row justify-content-center">
+          <div class="col py-3 px-lg-5 "> 
 
-<pre class="prettyprint linenums">
-# IMPORT OUR NORMAL STUFF
-from numpy import *
-from matplotlib.pyplot import *
-%matplotlib inline
+<pre class="prettyprint linenums" data-aos="zoom-in">
 
-f = fluid.FluidFlow2D(ncells=80, xmin=-50, xmax=50,
-  solver_tolerence=3.e-4)
+  #first import our packages
+  from numpy import *
+  %matplotlib inline
+  from matplotlib.pyplot import *
+  from glob import *
+  from astropy.io import ascii
 
-# gets the coordinate arrays
-xx, yy = f.get_coords()
-
-# setup an initial condition
-vxo = zeros_like(xx)
-vyo = zeros_like(xx)
-dno = ones_like(xx)
-
-# set higher density on the top
-
-dno[yy>5*sin(xx/6)-30] = 2
-dno[yy>5*sin(xx/6)+30] = 1
-
-#vxo[]
-vxo[yy>5*sin(xx/6)-30] = 2
-vxo[yy>5*sin(xx/6)+30] = 0
-
-# send this initial condition to the code
-diff_coeff = 1.e-3
-f.setup_initial_condition(vxo, vyo, dno, Diff_Coeff=diff_coeff,bctype="wrap")
-
-vxlist = []
-vylist = []
-dnlist = []
-
-f.evolve_fluid(vxlist,vylist,dnlist,tmax=400,plot_every=10,save_every=10,bctype="wrap")
-f.make_monitoring_plots(velocity_vectors = True)       
-
-
-
-import matplotlib.animation as animation
-%matplotlib nbagg
-
-save_every = 10
-
-fig = figure()
-
-def make_plot(i):
-    clf()
-    pcolormesh(xx,yy,dnlist[i],cmap = "gist_rainbow_r",vmin=1,vmax=2)
-    xlabel('x-position [m]')
-    ylabel('x-position [m]')
-    axis('equal')
-    colorbar(label="")
-
-anim = animation.FuncAnimation(fig,make_plot,interval=100,frames=range(len(dnlist)),repeat=False)
-
-#make_plot(3)
-
-anim.save("2D.mp4")
 </pre>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+
+history = ascii.read('trimmed_history.data',
+header_start=4,
+data_start=5)
+
+plot( history['star_age'], history['log_Teff'],'-',color='k' )
+xlabel('Time [yr]',fontsize=16)
+ylabel(r'$\log(T_{\rm eff}/K) $',fontsize=16)
+
+</pre>
+
+          <div class="row justify-content-center">
+            <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+              <img src="img/Sun.png">
+            </div>
           </div>
 
-          <div class="col-auto">
-            <h4 class="h4 mb-3" data-aos="zoom-in">What I did</h4>
-            <ul class="list-unstyled list-line mb-5">
-              <li>Design</li>
-              <li>HTML5/CSS3</li>
-              <li>CMS</li>
-              <li>Logo</li>
-            </ul>
+<pre class="prettyprint linenums" data-aos="zoom-in">
+files = glob('profile1[0-9].data')
+
+print files
+
+for i,fn in enumerate(files):
+    print i, fn
+    
+    # read in the data. 
+    profile = ascii.read(fn, # the filename we want to read in. 
+                    header_start=4,
+                    data_start=5)
+    
+    print "file read... "  
+    
+    plot(profile['mass'],profile['x'],
+        linewidth=2,
+        color=cm.jet( float(i)/len(files) ),  
+        label=(10+i) )
+    
+    plot(profile['mass'],profile['y'],'--',
+          linewidth=2,
+          color=cm.jet( float(i)/len(files) ),
+          label=''
+          )
+      
+      
+  # at the end, we can add some labels 
+  xlabel(r'Mass $[M_\odot]$',fontsize=20)
+  ylabel(r'$\log (\rho) \ [g / cm^3]$',fontsize=20)
+  legend(loc='lower right',labelspacing=0.1)
+  ylim(0,1)
+
+</pre>
+
+          <div class="row justify-content-center">
+            <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+              <img src="img/MESA.png">
+            </div>
           </div>
-        </div>
+
+<pre class="prettyprint linenums" data-aos="zoom-in">
+history1 = ascii.read('../MESA-Web_Job_0205080911/trimmed_history.data',
+header_start=4,
+data_start=5)
+
+plot( 10**history1['log_Teff'], history1['log_L']  )
+
+xlabel(r'$T_{\rm eff} [K]$',fontsize=20)
+ylabel(r'$\log (L/L_\odot)$',fontsize=20)
+
+xlim(6000,3000)
+</pre>
+
+          <div class="row justify-content-center">
+            <div class="col-6 py-3 px-lg-5 align-self-center" data-aos="zoom-in">
+              <img src="img/Herp.png">
+            </div>
+          </div>
+
       </div>
-    </div> -->
+    </div>
 
 
       <div class="site-section pb-0">
@@ -302,7 +323,16 @@ anim.save("2D.mp4")
               </a>
             </div>
 
-          </div>
+            <div class="item code col-sm-6 col-md-4 col-lg-4 mb-4">
+              <a href="code.html" class="item-wrap fancybox">
+                <div class="work-info">
+                  <h3>Code</h3>
+                  <span>Code</span>
+                </div>
+                <img class="img-fluid" src="img/codee.png">
+              </a>
+            </div>
+
         </div>
       </div>
 
@@ -323,6 +353,7 @@ anim.save("2D.mp4")
                     She does good work, and is not afraid to ask questions. She has 
                     a wonderful personality too. Contact me at the Harmony Magnet 
                     Academy web-site if you have any questions.</p>
+                    
                 </blockquote>
                 <p>&mdash; Marc Wheeler</p>
               </div>
@@ -371,3 +402,5 @@ anim.save("2D.mp4")
 </body>
 
 </html>
+
+
